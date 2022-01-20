@@ -28,16 +28,4 @@ public class Incomes {
     @Column(name = "VALOR", updatable = false)
     private Double value;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Incomes)) return false;
-        Incomes incomes = (Incomes) o;
-        return Objects.equals(description, incomes.description) && Objects.equals(releaseDate, incomes.releaseDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, releaseDate, value);
-    }
 }
