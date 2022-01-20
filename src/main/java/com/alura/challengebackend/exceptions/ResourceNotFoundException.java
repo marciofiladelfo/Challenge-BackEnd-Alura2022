@@ -1,4 +1,4 @@
-package com.alura.challengebackend.service.exceptions;
+package com.alura.challengebackend.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 

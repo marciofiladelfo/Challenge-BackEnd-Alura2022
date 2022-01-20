@@ -1,9 +1,9 @@
 package com.alura.challengebackend.service;
 
-import com.alura.challengebackend.model.Incomes;
-import com.alura.challengebackend.repository.IncomesRepository;
 import com.alura.challengebackend.exceptions.DatabaseException;
 import com.alura.challengebackend.exceptions.ResourceNotFoundException;
+import com.alura.challengebackend.model.Expenses;
+import com.alura.challengebackend.repository.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,31 +17,31 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 @Service
-public class IncomesService {
+public class ExpensesService {
 
     @Autowired
-    private IncomesRepository repository;
+    private ExpensesRepository repository;
 
     /**
      * Efetua busca no banco de dados e verifica contém a mesma descrição, dentro do mesmo mês.
      */
     @Transactional
-    public Incomes insert(Incomes incomes) {
-        var obj = repository.existsByDescriptionAndReleaseDate(incomes.getDescription(), incomes.getReleaseDate());
+    public Expenses insert(Expenses expenses) {
+        var obj = repository.existsByDescriptionAndReleaseDate(expenses.getDescription(), expenses.getReleaseDate());
         if (!obj) {
-            return repository.save(incomes);
+            return repository.save(expenses);
         }
         return null;
     }
 
     @Transactional
-    public Page<Incomes> list(Pageable pageable) {
+    public Page<Expenses> list(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     @Transactional
-    public Incomes listById(BigInteger id) {
-        Optional<Incomes> obj = repository.findById(id);
+    public Expenses listById(BigInteger id) {
+        Optional<Expenses> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
@@ -57,9 +57,9 @@ public class IncomesService {
     }
 
     @Transactional
-    public Incomes update(BigInteger id, Incomes obj) {
+    public Expenses update(BigInteger id, Expenses obj) {
         try {
-            Incomes entity = repository.getById(id);
+            Expenses entity = repository.getById(id);
             updateData(entity, obj);
             return repository.save(entity);
         } catch (EntityNotFoundException e) {
@@ -67,7 +67,7 @@ public class IncomesService {
         }
     }
 
-    private void updateData(Incomes entity, Incomes obj) {
+    private void updateData(Expenses entity, Expenses obj) {
         entity.setDescription(obj.getDescription());
         entity.setReleaseDate(obj.getReleaseDate());
         entity.setValue(obj.getValue());
