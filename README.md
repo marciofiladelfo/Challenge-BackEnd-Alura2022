@@ -13,6 +13,8 @@ Primeiramente, gostaria de te parabenizar por aceitar o desafio e mergulhar de c
 Como recordação da sua participação e reconhecimento por compartilhar seu aprendizado com a comunidade, deixamos essa badge 🏅
 
 Abraços e te vejo nos próximos Challenges!
-![bagde programacao 2](https://user-images.githubusercontent.com/79534537/155796420-855aaef4-038b-428e-af10-b28efca589f0.png = 200x200)
+</br>
+<img src="https://user-images.githubusercontent.com/79534537/155796420-855aaef4-038b-428e-af10-b28efca589f0.png" width="200" height="200">
+
 
 
