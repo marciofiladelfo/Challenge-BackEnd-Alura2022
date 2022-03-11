@@ -1,21 +1,15 @@
 create table incomes
 (
     id              bigint not null auto_increment primary key,
-    descricao       varchar(100),
-    data_lancamento date,
-    valor           double
+    descricao       varchar(100) not null,
+    data_lancamento date not null,
+    valor           decimal(10,2) not null
 );
 create table expenses
 (
     id              bigint not null auto_increment primary key,
-    descricao       varchar(100),
-    data_lancamento date,
-    valor           double,
-    category       varchar(100)
-);
-
-create table category
-(
-    id              bigint not null auto_increment primary key,
-    nome       varchar(100)
+    descricao       varchar(100) not null,
+    data_lancamento date not null,
+    valor           decimal(10,2) not null,
+    category       varchar(100) not null
 );

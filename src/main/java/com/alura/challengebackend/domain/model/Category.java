@@ -1,4 +1,4 @@
-package com.alura.challengebackend.model;
+package com.alura.challengebackend.domain.model;
 
 public enum Category {
     ALIMENTACAO,
