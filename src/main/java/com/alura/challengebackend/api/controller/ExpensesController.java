@@ -1,5 +1,8 @@
 package com.alura.challengebackend.api.controller;
 
+import com.alura.challengebackend.domain.exceptions.EntidadeNaoEncontradaException;
+import com.alura.challengebackend.domain.exceptions.NegocioException;
+import com.alura.challengebackend.domain.model.Category;
 import com.alura.challengebackend.domain.model.Expenses;
 import com.alura.challengebackend.domain.repository.ExpensesRepository;
 import com.alura.challengebackend.domain.service.ExpensesService;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -27,14 +32,7 @@ public class ExpensesController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Expenses saveExpenses(@Valid @RequestBody Expenses expenses) { //Recebe os dados para salvar
-        return service.salvar(expenses);
-    }
-
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public String errorPage() {
-        String categorias = "[ALIMENTACAO, SAUDE, MORADIA, TRANSPORTE, EDUCACAO, LAZER, IMPREVISTOS, OUTROS]";
-        return "Categoria não existe!\n" + "Inserir apenas as seguintes categorias: "
-                + categorias;
+        return service.save(expenses);
     }
 
     @GetMapping
@@ -48,7 +46,7 @@ public class ExpensesController {
     public ResponseEntity<Expenses> listExpensesById(@PathVariable BigInteger id) {
         return repository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Id não existe"));
     }
 
     @GetMapping(params = {"descricao"})
@@ -59,12 +57,17 @@ public class ExpensesController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(value = "/{id}")
+    @GetMapping("/{ano}/{mes}")
+    public List<Expenses> listExpensesDate(@PathVariable Integer ano, @PathVariable Integer mes) {
+        return repository.findData(ano, mes);
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Expenses> deleteExpensesById(@PathVariable BigInteger id) {
         if (!repository.existsById(id)) {
-            ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
-        repository.deleteById(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -75,6 +78,7 @@ public class ExpensesController {
             return ResponseEntity.notFound().build();
         }
         obj.setId(id);
+        service.save(obj);
         return ResponseEntity.ok(obj);
     }
 }

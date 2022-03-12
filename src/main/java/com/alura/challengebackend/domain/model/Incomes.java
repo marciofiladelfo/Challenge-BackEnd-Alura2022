@@ -1,12 +1,12 @@
 package com.alura.challengebackend.domain.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -24,17 +24,17 @@ public class Incomes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
-    @NotBlank
+    @NotNull
     @Size(max = 100)
-    @Column(name = "DESCRICAO", nullable = false)
+    @Column(name = "DESCRICAO")
     private String description;
 
-    @NotBlank
-    @Column(name = "DATA_LANCAMENTO", nullable = false)
+    @NotNull
+    @Column(name = "DATA_LANCAMENTO")
     private LocalDate releaseDate;
 
-    @NotBlank
-    @Column(name = "VALOR", nullable = false)
+    @NotNull
+    @Column(name = "VALOR")
     private BigDecimal value;
 
     @Override

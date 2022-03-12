@@ -8,5 +8,5 @@ public enum Category {
     EDUCACAO,
     LAZER,
     IMPREVISTOS,
-    OUTROS;
+    OUTROS
 }

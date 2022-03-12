@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -21,21 +22,20 @@ public class Expenses {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
 
-    @NotBlank
+    @NotNull
     @Size(max = 100)
     @Column(name = "DESCRICAO")
     private String description;
 
-    @NotBlank
+    @NotNull
     @Column(name = "DATA_LANCAMENTO")
     private LocalDate releaseDate;
 
-    @NotBlank
+    @NotNull
     @Column(name = "VALOR")
-    private Double value;
+    private BigDecimal value;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotNull
     @Column(name = "CATEGORY")
     @Enumerated(EnumType.STRING)
     private Category category;
